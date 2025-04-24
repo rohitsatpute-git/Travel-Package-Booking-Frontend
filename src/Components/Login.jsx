@@ -17,7 +17,7 @@ const AuthPage = () => {
 
     const data = await login(email, password, url);
     
-    if(res.status == 200 || res.status === 201) {
+    if(data.token) {
         localStorage.setItem('token', data.token)
         const user = getUserFromToken();
         if(user.role === 'admin') navigate('/admin')
