@@ -59,7 +59,7 @@ export default function Home() {
 
  
   return (
-    <div className="fixed inset-0 z-[0] flex flex-col justify-center">
+    <div className=" inset-0 z-[0] flex flex-col justify-center">
         <div className="p-6 w-full mx-auto relative px-60">
           <div className="absolute top-2 right-2 px-4 py-2 bg-red-600 text-white rounded-md cursor-pointer" onClick={onLogout}>Logout</div>
           <User className="fixed top-8 left-8 cursor-pointer border rounded-full w-12 h-12" onClick={profileClicked}/>

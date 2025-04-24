@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { getUserFromToken } from "../utils/auth";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { fetchUser, fetchBookings, updateUser } from "../utils/searchAPI";
 
 const Profile = () => {
   const [user, setUser] = useState(getUserFromToken());
@@ -13,24 +14,18 @@ const Profile = () => {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    // const fetchUser = async () => {
-    //   const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/me`, {
-    //     headers: { Authorization: `Bearer ${token}` },
-    //   });
-    //   const data = await res.json();
-    //   setUser(data);
-    // };
+    const getUser = async () => {
+      const data = await fetchUser();
+      setUser(data);
+    };
 
-    const fetchBookings = async () => {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/bookings/me`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await res.json();
+    const getBookings = async () => {
+      const data = await fetchBookings();
       setBookings(data);
     };
 
-    // fetchUser();
-    fetchBookings();
+    getUser();
+    getBookings();
   }, [token]);
 
   const handleInputChange = (e) => {
@@ -39,15 +34,7 @@ const Profile = () => {
 
   const handleUpdate = async () => {
     setUpdating(true);
-    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/update`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
-    const data = await res.json();
+    const data = await updateUser(user);
     alert("Profile Updated");
     setUser(data);
     setUpdating(false);

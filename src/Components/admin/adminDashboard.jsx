@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PackageList from "./PackageList";
+import { getPackages } from "../../utils/searchAPI";
 
 const initialForm = {
   from: "",
@@ -19,8 +20,7 @@ const AdminDashboard = () => {
   const [editId, setEditId] = useState(null);
 
   const fetchPackages = async () => {
-    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/packages`);
-    const data = await res.json();
+    const data = await getPackages();
     setPackages(data);
   };
 

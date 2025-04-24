@@ -3,6 +3,7 @@ import { Mail, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { getUserFromToken } from '../utils/auth';
+import { login } from '../utils/searchAPI';
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -13,12 +14,9 @@ const AuthPage = () => {
   const handleAuth = async (e) => {
     e.preventDefault();
     const url = import.meta.env.VITE_BACKEND_URL + (isLogin ? '/api/login' : '/api/signup');
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await res.json();
+
+    const data = await login(email, password, url);
+    
     if(res.status == 200 || res.status === 201) {
         localStorage.setItem('token', data.token)
         const user = getUserFromToken();
