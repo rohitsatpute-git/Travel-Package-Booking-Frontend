@@ -29,6 +29,7 @@ const PackageDetail = ({pkg, setPkgDetail}) => {
     const totalPrice = getTotalPrice();
     const res = await bookPackage(localStorage.getItem('token'), pkg._id, selectedServices,  totalPrice);
     setSubmitting(false);
+    setPkgDetail(null);
   };
 
   const onCancelClicked = useCallback(() => {

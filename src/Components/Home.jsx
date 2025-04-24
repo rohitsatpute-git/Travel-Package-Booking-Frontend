@@ -60,10 +60,11 @@ export default function Home() {
 
  
   return (
-    <div className=" inset-0 z-[0] flex flex-col justify-center">
-        <div className="p-6 w-full mx-auto relative px-60">
-          <div className="absolute top-2 right-2 px-4 py-2 bg-red-600 text-white rounded-md cursor-pointer" onClick={onLogout}>Logout</div>
-          <User className="fixed top-8 left-8 cursor-pointer border rounded-full w-12 h-12" onClick={profileClicked}/>
+        <div className="p-6 w-full mx-auto relative lg:px-60">
+          <div className="lg:-mx-40 flex flex-row justify-between">
+            <User className=" mr-auto top-2 cursor-pointer border rounded-full w-8 h-8" onClick={profileClicked}/>
+            <div className="w-fit ml-auto top-2 right-2 px-4 py-2 bg-red-600 text-white rounded-md cursor-pointer" onClick={onLogout}>Logout</div>
+          </div>
           <h1 className="text-2xl font-bold mb-4">Find Your Travel Package</h1>
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 bg-white p-4 rounded-xl shadow mb-6">
             <input name="from" type="text" placeholder="From" value={filters.from} onChange={handleChange} className="border p-2 rounded"/>
@@ -102,6 +103,5 @@ export default function Home() {
           {pkgDetail && <PackageDetail pkg={pkgDetail} setPkgDetail={setPkgDetail}/>}
 
         </div>
-    </div>
   );
 }

@@ -58,8 +58,8 @@ const Profile = () => {
   if (!user) return <div className="p-6">Loading...</div>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-md mt-6 rounded">
-      <ArrowLeft className="fixed top-8 left-8 cursor-pointer w-10 h-10" onClick={backToHome}/>
+    <div className="max-w-4xl mx-auto p-6 bg-white shadow-md lg:mt-6 rounded">
+      <ArrowLeft className="lg:fixed top-8 left-8 cursor-pointer w-10 h-10" onClick={backToHome}/>
       <h2 className="text-2xl font-bold mb-4">Profile</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input name="name" className="border p-2 rounded" placeholder="Name" value={user.name || ""} onChange={handleInputChange}/>
@@ -71,7 +71,7 @@ const Profile = () => {
       </button>
 
       <h3 className="text-xl font-semibold mt-8 mb-2">My Bookings</h3>
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-4 flex-wrap">
         {["all", "upcoming", "active", "completed"].map((f) => (
           <button key={f} className={`px-3 py-1 border rounded ${ filter === f ? "bg-blue-500 text-white" : "bg-gray-100"}`} onClick={() => setFilter(f)}>
             {f.charAt(0).toUpperCase() + f.slice(1)}
