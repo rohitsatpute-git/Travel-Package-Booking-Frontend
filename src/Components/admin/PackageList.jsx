@@ -11,6 +11,7 @@ export default function PackageList() {
   }, []);
 
   const fetchAllData = async () => {
+    // await getUsersWithBookings()
     const [userData, statusData, statsData] = await Promise.all([
       getUsersWithBookings(),
       getPackageStatus(),
@@ -31,7 +32,7 @@ export default function PackageList() {
             <p className="font-semibold">{user.name || user.email}</p>
             <ul className="ml-4 list-disc">
               {user.bookings?.map(b => (
-                <li key={b._id}>Package: {b.package}, Total Price: ₹{b.totalPrice}</li>
+                <li className={`flex flex-row gap-x-2 ${!b.package && 'hidden'}`}>Package: {b.package?.from} <ArrowRight/> {b.package?.to}</li>
               ))}
             </ul>
           </div>
@@ -81,8 +82,14 @@ export default function PackageList() {
           </thead>
           <tbody>
             {bookingStats.map(item => (
-              <tr key={item.packageId}>
-                <td className="border px-4 py-2">{item._id}</td>
+              <tr key={item.package.packageId}>
+                <td className="border px-4 py-2">
+                  <div className='flex gap-x-4'>
+                      <span>{item.package.from} </span>
+                      <ArrowRight/>
+                      <span>{item.package.to}</span>
+                  </div>
+                </td>
                 <td className="border px-4 py-2">{item.count}</td>
               </tr>
             ))}

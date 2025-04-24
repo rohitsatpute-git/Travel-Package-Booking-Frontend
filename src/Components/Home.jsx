@@ -50,6 +50,7 @@ export default function Home() {
   }, [])
 
   const onLogout = useCallback(() => {
+    localStorage.removeItem('token')
     navigate('/login')
   }, [])
 

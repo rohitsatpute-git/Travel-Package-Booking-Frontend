@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import PackageList from "./PackageList";
 import { getPackages } from "../../utils/searchAPI";
+import { useNavigate } from "react-router-dom";
 
 const initialForm = {
   from: "",
@@ -18,6 +19,7 @@ const AdminDashboard = () => {
   const [packages, setPackages] = useState([]);
   const [form, setForm] = useState(initialForm);
   const [editId, setEditId] = useState(null);
+  const navigate = useNavigate();
 
   const fetchPackages = async () => {
     const data = await getPackages();
@@ -92,8 +94,14 @@ const AdminDashboard = () => {
     fetchPackages();
   };
 
+  const onLogout = useCallback(() => {
+    localStorage.removeItem('token')
+    navigate('/login')
+  }, [])
+
   return (
     <div className="p-6">
+      <div className="fixed top-2 right-2 px-4 py-2 bg-red-600 text-white rounded-md cursor-pointer" onClick={onLogout}>Logout</div>
       <h1 className="text-2xl font-bold mb-4">{editId ? "Edit" : "Add"} Travel Package</h1>
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-4 rounded shadow mb-8">
         <input className="border p-2 rounded" name="from" value={form.from} onChange={handleChange} placeholder="From" required />
